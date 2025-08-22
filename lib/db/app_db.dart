@@ -1,19 +1,19 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Db {
+class AppDb {
   Database? database;
 
   Future<Database> getinitDb() async {
     if (database != null && database!.isOpen) {
       return database!;
     } else {
-      await initDatabase();
+      await _initDatabase();
       return database!;
     }
   }
 
-  Future<void> initDatabase() async {
+  Future<void> _initDatabase() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'db');
     database = await openDatabase(
