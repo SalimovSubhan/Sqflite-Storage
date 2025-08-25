@@ -1,8 +1,7 @@
 import 'package:sqflite_storage/db/app_db.dart';
 
 class CarDao {
-  final AppDb database;
-  CarDao({required this.database});
+  final AppDb database = AppDb();
 
   Future getAllCar() async {
     final db = await database.getinitDb();

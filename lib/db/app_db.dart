@@ -18,13 +18,22 @@ class AppDb {
     final path = join(dbPath, 'db');
     database = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, version) async {
         await db.execute('''CREATE TABLE Car (
      id INTEGER PRIMARY KEY,
      name TEXT,
      age INTEGER
      )''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion == 1 && newVersion == 2) {
+          await db.execute('''CREATE TABLE Dog (
+          id INTEGER PRIMARY KEY,
+          name TEXT,
+          age INTEGER
+          )''');
+        }
       },
     );
   }
